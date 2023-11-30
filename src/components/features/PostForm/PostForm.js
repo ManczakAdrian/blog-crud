@@ -2,13 +2,10 @@ import { Form } from "react-bootstrap";
 import  { Row } from "react-bootstrap";
 import  { Col } from "react-bootstrap";
 import  { Button } from "react-bootstrap";
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-
 import { getAllCategories } from "../../../redux/categoriesRedux";
-
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ReactQuill from "react-quill";
