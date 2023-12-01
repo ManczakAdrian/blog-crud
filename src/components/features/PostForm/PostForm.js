@@ -12,6 +12,7 @@ import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 
 
+
 const PostForm = ({ action, actionText, ... props}) => {
 
     const [title, setTitle] = useState(props.title || '');
