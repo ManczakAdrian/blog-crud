@@ -1,30 +1,28 @@
 import { Form } from "react-bootstrap";
-import  { Row } from "react-bootstrap";
-import  { Col } from "react-bootstrap";
-import  { Button } from "react-bootstrap";
+import { Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getAllCategories } from "../../../redux/categoriesRedux";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
+import {useForm} from "react-hook-form";
 
-
-
-const PostForm = ({ action, actionText, ... props}) => {
+const PostForm = ({ action, actionText, ...props }) => {
 
     const [title, setTitle] = useState(props.title || '');
     const [author, setAuthor] = useState(props.author || '');
     const [publishedDate, setSelectedDate] = useState(props.date || '');
     const [shortDescription, setShortDescription] = useState(props.shortDescription || '');
     const [content, setContent] = useState(props.content || '');
-    const [category, setCategory] =useState(props.category || '');
+    const [category, setCategory] = useState(props.category || '');
     const [contentError, setContentError] = useState(false);
     const [dateError, setDateError] = useState(false);
     const [categoryError, setCategoryError] = useState(false);
-    
+
     const categories = useSelector(getAllCategories);
 
     const { register, handleSubmit: validate, formState: { errors } } = useForm();
@@ -33,17 +31,17 @@ const PostForm = ({ action, actionText, ... props}) => {
         setContentError(!content)
         setDateError(!publishedDate)
         setCategoryError(!category || !categories.includes(category));
-    
+
         if (content && publishedDate && category && categories.includes(category)) {
-          action({ title, author, publishedDate, category, shortDescription, content });
+            action({ title, author, publishedDate, category, shortDescription, content });
         }
     };
-                                                                                                                                  
+
     return (
 
         <section>
 
-            <Row className="d-flex flex-column"> 
+            <Row className="d-flex flex-column">
                 <Form onSubmit={validate(handleSubmit)} >
 
                     <Col lg={10} xs={12} md={8}>
@@ -77,7 +75,7 @@ const PostForm = ({ action, actionText, ... props}) => {
                         </Form.Group>
                         <Form.Group className="mb-3 px-1">
                             <Form.Label className="px-0">Categories</Form.Label>
-                            <Form.Select 
+                            <Form.Select
                                 value={category} onChange={e => setCategory(e.target.value)}>
                                 <option>Select Category</option>
                                 {categories.map((category, index) => (
@@ -85,24 +83,24 @@ const PostForm = ({ action, actionText, ... props}) => {
                                         {category}
                                     </option>
                                 ))}
-                            
+
                             </Form.Select>
                             {categoryError && (<small className="d-block form-text text-danger mt-2 px-0">This field is required.</small>)}
                         </Form.Group>
-                        
+
                     </Col>
 
                     <Col lg={12} xs={12} md={10} className="px-1">
 
                         <Form.Group className="mb-3" controlId="floatingTextarea1">
                             <Form.Label>Short description</Form.Label>
-                            <Form.Control 
+                            <Form.Control
                                 {...register("shortDescription", { required: true, minLength: 20 })}
                                 value={shortDescription}
                                 onChange={e => setShortDescription(e.target.value)}
                                 as="textarea" rows={6} placeholder="Leave a comment here"
                             />
-                                {errors.shortDescription && <small className="d-block form-text text-danger mt-2">This field is required (min 20 characters).</small>}
+                            {errors.shortDescription && <small className="d-block form-text text-danger mt-2">This field is required (min 20 characters).</small>}
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="floatingTextarea2">
@@ -113,7 +111,7 @@ const PostForm = ({ action, actionText, ... props}) => {
 
                     </Col>
 
-                    <Button type="submit"  className="mx-1 mt-5">{actionText}</Button>
+                    <Button type="submit" className="mx-1 mt-5">{actionText}</Button>
 
                 </Form>
             </Row>
