@@ -106,7 +106,7 @@ const PostForm = ({ action, actionText, ...props }) => {
                         <Form.Group className="mb-3" controlId="floatingTextarea2">
                             <Form.Label>Main content</Form.Label>
                             <ReactQuill theme="snow" style={{ height: '200px' }} value={content} onChange={setContent} />
-                            {contentError && (<small className="d-block form-text text-danger mt-5">Content can't be empty</small>)}
+                            {errors.title && <small className="d-block form-text text-danger mt-2">This field is required</small>}
                         </Form.Group>
 
                     </Col>
